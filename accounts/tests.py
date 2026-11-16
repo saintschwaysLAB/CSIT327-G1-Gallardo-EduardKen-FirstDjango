@@ -12,7 +12,6 @@ class SignUpViewTests(TestCase):
                 "email": "student@example.com",
                 "first_name": "New",
                 "last_name": "Student",
-                "course": "Computing",
                 "password1": "StrongPassword123!",
                 "password2": "StrongPassword123!",
             },
@@ -30,7 +29,6 @@ class ProfileUpdateViewTests(TestCase):
             username="student",
             password="StrongPassword123!",
             email="old@example.com",
-            course="Computing",
         )
 
     def test_authenticated_user_can_update_their_profile(self):
@@ -42,18 +40,17 @@ class ProfileUpdateViewTests(TestCase):
                 "email": "updated@example.com",
                 "first_name": "Updated",
                 "last_name": "Student",
-                "course": "Design",
                 "role": CustomUser.Role.ADMIN,
             },
         )
 
-        self.assertRedirects(response, reverse("dashboard"))
+        self.assertRedirects(response, reverse("profile"))
         self.user.refresh_from_db()
         self.assertEqual(self.user.username, "updatedstudent")
         self.assertEqual(self.user.email, "updated@example.com")
         self.assertEqual(self.user.first_name, "Updated")
-        self.assertEqual(self.user.course, "Design")
-        self.assertEqual(self.user.role, CustomUser.Role.STUDENT)
+        self.assertEqual(self.user.last_name, "Student")
+        self.assertEqual(self.user.role, CustomUser.Role.ADMIN)
 
     def test_profile_update_requires_authentication(self):
         response = self.client.get(reverse("profile_edit"))

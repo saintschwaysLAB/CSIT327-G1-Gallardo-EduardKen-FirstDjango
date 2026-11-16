@@ -2,6 +2,9 @@
 venv/
 env/
 .env
-db.sqlite3
+.env.*
 __pycache__/
 *.py[cod]
+*.sqlite3
+*.db
+.DS_Store

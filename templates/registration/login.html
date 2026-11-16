@@ -1,21 +1,60 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-7 col-lg-5">
-        <div class="card shadow-sm">
-            <div class="card-body p-4">
-                <h1 class="h3 card-title mb-4">Log in</h1>
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    {% if next %}
-                        <input type="hidden" name="next" value="{{ next }}">
-                    {% endif %}
-                    <button class="btn btn-primary w-100" type="submit">Log in</button>
-                </form>
-                <p class="mt-3 mb-0">No account? <a href="{% url 'signup' %}">Sign up</a></p>
+<div class="login-layout">
+    <div class="forest-panel">
+        <img class="forest-image" src="{% static 'images/forest.jpg' %}" alt="Forest" />
+    </div>
+
+    <div class="auth-panel">
+        <div class="eyebrow">Let's keep growing</div>
+        <h1 class="welcome-title">Welcome back</h1>
+        <p style="font-size: 1.12rem; color: var(--muted); margin-bottom: 1.4rem; max-width: 410px;">
+            Sign in to plant a little hope and follow the difference you're making.
+        </p>
+
+        <button class="google-button" type="button">
+            Continue with Google
+        </button>
+
+        <div class="divider">or sign in with email</div>
+
+        <form method="post" class="auth-form" novalidate>
+            {% csrf_token %}
+            {% if next %}
+                <input type="hidden" name="next" value="{{ next }}">
+            {% endif %}
+
+            <div class="field-group">
+                <label for="id_username">Username</label>
+                <input type="text" name="username" id="id_username" placeholder="Enter your username" required>
             </div>
+
+            <div class="field-group">
+                <label for="id_password">Password</label>
+                <div class="password-wrap">
+                    <input type="password" name="password" id="id_password" placeholder="Enter your password" required>
+                </div>
+            </div>
+
+            <div class="meta-row">
+                <label class="remember">
+                    <input type="checkbox" name="remember_me">
+                    Remember me
+                </label>
+                <a href="#" class="forgot-link">Forgot password?</a>
+            </div>
+
+            <button class="primary-login" type="submit">
+                Log in
+                <span class="arrow">→</span>
+            </button>
+        </form>
+
+        <div class="signup-line">
+            New to Berdeng Gubat? <a href="{% url 'signup' %}">Create an account</a>
         </div>
     </div>
 </div>

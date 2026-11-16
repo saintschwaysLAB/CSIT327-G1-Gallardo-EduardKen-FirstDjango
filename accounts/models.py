@@ -4,14 +4,10 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class CustomUser(AbstractUser):
     class Role(models.TextChoices):
-        STUDENT = "STUDENT", "Student"
-        INSTRUCTOR = "INSTRUCTOR", "Instructor"
-        ADMIN = "ADMIN", "Administrator"
+        CUSTOMER = "CUSTOMER", "Customer"
+        ADMIN = "ADMIN", "Admin"
 
 
     role = models.CharField(max_length=10,
         choices = Role.choices,
-        default = Role.STUDENT)
-
-
-    course = models.CharField(max_length=100, blank=True)
+        default = Role.CUSTOMER)
